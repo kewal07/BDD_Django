@@ -1,10 +1,9 @@
 from rest_framework import generics
 
-from .models import Transaction
-from .serializers import TransactionSerializer, TransactionCreateSerializer
+from .models import Transaction, Card
+from .serializers import TransactionSerializer, TransactionCreateSerializer, CardSerializer
 
-
-class TransactionView(generics.ListCreateAPIView):
+class TransactionListCreateAPIView(generics.ListCreateAPIView):
 	queryset = Transaction.objects.all()
 	serializer_class = TransactionSerializer
 	permission_classes = []
@@ -14,6 +13,17 @@ class TransactionView(generics.ListCreateAPIView):
 			return TransactionSerializer
 		return TransactionCreateSerializer
 	
-	# The next test/feature should be that user sees only their own transactions; this is not yet done
+	# The next test/feature should be that user sees only their own transactions; this is not yet done ; done for TDD, see cards view below
 	# def get_queryset(self):
-		# return Transaction.objects.filter(user=request.user)
+		# return Transaction.objects.filter(user=self.request.user)
+
+
+
+class CardListCreateAPIView(generics.ListCreateAPIView):
+	serializer_class = CardSerializer
+
+	def get_queryset(self):
+		return Card.objects.filter(user=self.request.user)
+
+	def perform_create(self, serializer):
+		serializer.save(user=self.request.user)

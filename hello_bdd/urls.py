@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 # Included for brevity and time; Ideally we should use include
-from bdd_customer.views import TransactionView
+from bdd_customer.views import TransactionListCreateAPIView, CardListCreateAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('transactions', TransactionView.as_view(), name='transactions')
+    path('transactions', TransactionListCreateAPIView.as_view(), name='transactions'),
+    path('cards', CardListCreateAPIView.as_view(), name='cards')
 ]
 

@@ -12,6 +12,27 @@ Feature: Customer transactions
 		
 		Then I am successfully logged in
 
+	Scenario: A customer can see a list of their transactions
+
+		Given I empty the "Transaction" table
+
+		And I empty the "User" table
+
+		And I create the following users:
+		| id | username | password |
+		| 1  | john_doe | password |
+
+		And I create the following transactions:
+		| user | amount | type_of_transaction |
+		| 1    | 100	| CRE			      |
+		| 1    | 200	| DEB			 	  |
+		| 1    | 300	| CRE		 		  |
+		
+		When I get a list of transactions
+
+		Then I see the below response:
+		| id | amount | type_of_transaction |
+
 	Scenario: A customer with no transactions sees an empty list
 
 		Given I empty the "Transaction" table
