@@ -1,0 +1,6 @@
+aloe-django==0.1.3
+Django==2.2.1
+django-nose==1.4.6
+djangorestframework==3.9.3
+gherkin-official==4.1.3
+nose==1.3.7
